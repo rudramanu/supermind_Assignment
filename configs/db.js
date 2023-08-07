@@ -1,7 +1,7 @@
 const { Sequelize } = require("sequelize");
-
-const sequelize = new Sequelize("supermind_data", "root", "rudramanu@00", {
-  host: "localhost",
+require("dotenv").config();
+const sequelize = new Sequelize("supermind", "admin", process.env.password, {
+  host: "database-1.cugai8ped57o.ap-south-1.rds.amazonaws.com",
   dialect: "mysql",
 });
 

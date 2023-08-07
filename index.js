@@ -23,8 +23,7 @@ app.listen(9800, async () => {
     await sequelize.sync();
     console.log("Connected to database");
   } catch (error) {
-    console.log(error);
-    res.send("trouble while connecting");
+    console.log("trouble while connecting");
   }
   console.log("Server is running on port 9800");
 });
