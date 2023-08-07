@@ -7,13 +7,16 @@ commentRouter.post("/posts/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { content, postId, userId } = req.body;
+
     const post = await Post.findByPk(id);
     if (!post) {
       return res.send({ error: "Post not found" });
     }
     const newComment = await Comment.create({ content, postId: id, userId });
+    console.log(newComment);
     res.send(newComment);
   } catch (err) {
+    console.error(err);
     res.send({ error: "Internal Server Error" });
   }
 });

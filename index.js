@@ -7,6 +7,7 @@ const { sequelize } = require("./configs/db");
 const { postRouter } = require("./routes/post.route");
 const { commentRouter } = require("./routes/comment.route");
 const { userRouter } = require("./routes/user.route");
+const { authentication } = require("./middleware/authentication");
 require("dotenv").config();
 const { logger } = require("./middleware/logger");
 app.use(logger);
@@ -15,7 +16,7 @@ app.get("/", (req, res) => {
 });
 app.use("/user", userRouter);
 app.use("/post", postRouter);
-app.use("/comment", commentRouter);
+app.use("/comment", authentication, commentRouter);
 
 app.listen(9800, async () => {
   try {
