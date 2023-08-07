@@ -1,6 +1,7 @@
 const express = require("express");
 const postRouter = express.Router();
 const { Post } = require("../models/post.model");
+const { authentication } = require("../middleware/authentication");
 
 postRouter.get("/posts", async (req, res) => {
   let data = await Post.findAll();
@@ -20,7 +21,7 @@ postRouter.get("/posts/:id", async (req, res) => {
   }
 });
 
-postRouter.post("/posts", async (req, res) => {
+postRouter.post("/posts", authentication, async (req, res) => {
   const { title, content, userId } = req.body;
   console.log(req.body);
   try {
@@ -31,7 +32,7 @@ postRouter.post("/posts", async (req, res) => {
   }
 });
 
-postRouter.patch("/update/:id", async (req, res) => {
+postRouter.patch("/update/:id", authentication, async (req, res) => {
   try {
     const id = req.params.id;
     const { title, content } = req.body;
@@ -48,7 +49,7 @@ postRouter.patch("/update/:id", async (req, res) => {
   }
 });
 
-postRouter.delete("/delete/:id", async (req, res) => {
+postRouter.delete("/delete/:id", authentication, async (req, res) => {
   try {
     const { id } = req.params;
     const post = await Post.findByPk(id);

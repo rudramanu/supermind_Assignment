@@ -4,7 +4,6 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 const { sequelize } = require("./configs/db");
-const { authentication } = require("./middleware/authentication");
 const { postRouter } = require("./routes/post.route");
 const { commentRouter } = require("./routes/comment.route");
 const { userRouter } = require("./routes/user.route");
@@ -15,8 +14,8 @@ app.get("/", (req, res) => {
   res.send("APIs are working fine");
 });
 app.use("/user", userRouter);
-app.use("/post", authentication, postRouter);
-app.use("/comment", authentication, commentRouter);
+app.use("/post", postRouter);
+app.use("/comment", commentRouter);
 
 app.listen(9800, async () => {
   try {
