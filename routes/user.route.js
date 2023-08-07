@@ -18,7 +18,7 @@ userRouter.post("/signup", async (req, res) => {
         console.log("Something went wrong");
       } else {
         await Users.create({ name, email, password: encrypted });
-        res.send("User Created");
+        res.send({ message: "User Created" });
       }
     });
   } catch (error) {
@@ -31,7 +31,13 @@ userRouter.post("/login", async (req, res) => {
 
   try {
     const user = await Users.findOne({ where: { email } });
-    const hashed_password = user?.password;
+
+    if (!user) {
+      return res.send({ message: "User not found" });
+    }
+
+    const hashed_password = user.password;
+    console.log("hashed_password", hashed_password);
 
     bcrypt.compare(password, hashed_password, (err, result) => {
       if (result) {
@@ -45,7 +51,8 @@ userRouter.post("/login", async (req, res) => {
           email,
         });
       } else {
-        res.send("Wrong credentials");
+        console.log("errrrr", err);
+        res.send({ message: "Wrong credentials" });
       }
     });
   } catch (error) {
