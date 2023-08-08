@@ -23,6 +23,10 @@ const Post = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    url: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   { timestamps: false }
 );
