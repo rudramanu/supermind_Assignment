@@ -21,7 +21,7 @@ postRouter.get("/posts/:id", async (req, res) => {
   }
 });
 
-postRouter.post("/posts", authentication, async (req, res) => {
+postRouter.post("/posts", async (req, res) => {
   const { title, content, userId } = req.body;
   console.log(req.body);
   try {
